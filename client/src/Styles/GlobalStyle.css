@@ -1,0 +1,13 @@
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    display: flex;
+    gap: 2px;
+}

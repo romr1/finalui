@@ -1,0 +1,85 @@
+.table_card {
+  width: "100%";
+  height: "100%";
+  display: "flex";
+  background-color: rgb(59, 58, 58);
+  word-break: break-all;
+  /* flexDirection: "column"; */
+}
+
+.table {
+  border-collapse: separate;
+  border-radius: 6px;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+  margin-left: 100px;
+  word-break: break-all;
+}
+
+td:first-child,
+th:first-child {
+  border-left: none;
+  word-break: break-all;
+}
+
+tr,
+td:last-child,
+th:last-child {
+  border-bottom: 0;
+  border-right: 0;
+  word-break: break-all;
+}
+
+th,
+td {
+
+  /* margin: 0;*/
+  padding: 0.5rem; 
+  border-top: solid rgba(255, 255, 255, 0.1) 1px;
+  border-bottom: 1px rgb(59, 58, 58);
+  border-right: 1px rgba(255, 255, 255, 0.1);
+  word-break: break-all;
+  /* box-sizing: border-box; */
+}
+
+th {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-top: none;
+  position: sticky;
+  word-break: break-all;
+}
+
+tbody tr {
+  transition: rgba(255, 255, 255, 0.1) 150ms ease-out;
+  word-break: break-all;
+}
+
+tbody tr:hover {
+  background-color: #e4dedeb0;
+  word-break: break-all;
+}
+
+/* .toggle_columns{
+  background-color: rgba(255, 255, 255, 0.1);
+    border-top: none;
+    position: sticky;
+} */
+
+
+
+/*https://codepen.io/ajlohman/pen/GRWYWw*/
+
+
+/* Google fonts - Open Sans
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+/* colors */
+element {
+  blue: rgba(79, 192, 210, 1);
+  green: rgba(82, 210, 154, 1);
+  yellow: rgba(231, 196, 104, 0.7);
+  orange: rgba(235, 118, 85, 1);
+  dark-bg: rgba(0, 0, 0, 0.9);
+  light-bg: rgba(255, 255, 255, 0.1);
+  text: rgba(255, 255, 255, 0.9);
+}
