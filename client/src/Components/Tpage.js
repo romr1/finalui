@@ -91,7 +91,7 @@ export function TPage() {
                 >
                     <div className={classes.drawerHeader} />
                     <Title message="Summery of" name="t_name" pk={t_id} />
-                    <BaseInformation />
+                    <BaseInformation info_id={t_id}/>
                     {/* <div className="rectangle" > */}
                     {  
                         data.map((item) =>

@@ -52,6 +52,30 @@ export function sendDataToServer(route, data_to_send){
     return finalData //list of dict
 }
 
+export function sendDataToServer2(route, data_to_send){
+    const [finalData, setData] = useState();
+    React.useEffect(function effectFunction() {
+        async function fetchData() {
+            console.log(data_to_send)
+            const response = await fetch(route, {
+                                                method:"POST",
+                                                headers:{ Authentication:'Access-Control-Allow-Origin'},
+                                                body:data_to_send
+                                                });
+            const data = await response.json();
+            console.log(data)
+            setData(data.responses);
+        }
+        fetchData().catch(err=>{
+            console.log(err)
+        });
+    }, []);
+
+    //getColumns(finalData)
+    return finalData //list of dict
+}
+
+
 function get_parse_columns_filters(next_page_route = null, image_src = null) {
     let filters_dict =
     {

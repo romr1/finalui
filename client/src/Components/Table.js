@@ -122,10 +122,12 @@ export function Table({ columns, data, id_t, isRigth }) {
 
               {allColumns.map(column => (
                 <div key={column.id} class="column" >
-                  <label>
+                    {/* this is change the span of first column */}
+                  {/* <label>
                     <input type="checkbox" {...column.getToggleHiddenProps()} />{''}
                     {column.id}
-                  </label>
+                  </label> */} 
+                
                 </div>
               ))}
               <br />

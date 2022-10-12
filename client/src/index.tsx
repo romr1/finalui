@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Login from './Components/Login';
-import { Home } from './Components/Home';
+//import { Home } from './Components/Home';
 import { Home2 } from './Components/Home2';
 import { TPage } from './Components/Tpage';
 import { Ppage } from './Components/Ppage';

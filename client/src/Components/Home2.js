@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssBaseline, ThemeProvider, createMuiTheme } from "@material-ui/core";
@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar";
 import { getDataFromServer } from "../utils/dataFromServer"
 import Title from "./Title"
 import add_dynamic_components from '../utils/makeData'
-
+import { Link } from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +65,21 @@ export function Home2() {
     setDarkMode(!darkMode);
   };
   let host=process.env.REACT_APP_HOST+process.env.REACT_APP_MAIN_TABLE_ROUTE
+  let next_page_route='/Home/TPage/'
   const data = getDataFromServer(host);
+  const [pk_search, setSearch] = useState("");
+  
+//const [input, setInput] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSearch(event.target[0].value);
+    console.log(pk_search)
+    if (pk_search>0){
+      window.location.href=next_page_route+pk_search
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -83,6 +97,10 @@ export function Home2() {
         >
           <div className={classes.drawerHeader} />
           <Title message={process.env.REACT_APP_TITLE_MESSAGE} />
+          <form onSubmit={handleSubmit}>
+            <input type="text" />
+            <button type="submit">Search</button>
+          </form>
           {data.map((item) =>
           //  <div class="rectangle"> 
             add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)
