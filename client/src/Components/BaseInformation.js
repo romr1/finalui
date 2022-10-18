@@ -32,10 +32,10 @@ export default function BaseInformation(info_id) {
   console.log("blaa")
   console.log(info_id.info_id)
   let route=process.env.REACT_APP_HOST+'/battery'
-  let battery_percentage = sendDataToServer2(route, info_id);
+  //let battery_percentage = sendDataToServer2(route, info_id);
   console.log("battery_percentage")
   //console.log(battery_percentage)
-  //let battery_percentage=10
+  let battery_percentage=10
   if (battery_percentage){
    
     let time_connection = 100

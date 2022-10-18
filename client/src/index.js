@@ -9,20 +9,49 @@ import { Ppage } from './Components/Ppage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Routes>
         <Route path="/Home" >
           <Route path="" element={<Home2 />} />
-          <Route path="TPage"  >
-            <Route path=":t_id">
-              <Route path="" element={<TPage />} />
-              <Route path='products' element={<Ppage />} />
+            <Route path="TPage"  >
+              <Route path=":t_id">
+                <Route path="" element={<TPage />} />
+                <Route path='products' element={<Ppage />} />
+              </Route>
+              
+
+
             </Route>
 
+            <Route path={`TPage/${process.env.REACT_APP_SEARCH_TEXT_1}`}>
+              <Route path=":t_id">
+                <Route path="" element={<TPage />} />
+               
+              </Route>
+            </Route>
+
+            <Route path={`TPage/${process.env.REACT_APP_SEARCH_TEXT_2}`} >
+              <Route path=":t_id">
+                <Route path="" element={<TPage />} />
+               
+              </Route>
+            </Route>
+            <Route path={`TPage/${process.env.REACT_APP_SEARCH_TEXT_3}`} >
+              <Route path=":t_id">
+                <Route path="" element={<TPage />} />
+               
+              </Route>
+            </Route>
+            <Route path={`TPage/${process.env.REACT_APP_SEARCH_TEXT_4}`} >
+              <Route path=":t_id">
+                <Route path="" element={<TPage />} />
+               
+              </Route>
+            </Route>
           </Route>
-        </Route>
 
         <Route path="/" element={<Login />}>
         </Route>

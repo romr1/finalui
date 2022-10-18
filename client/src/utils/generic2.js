@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "../Styles/GlobalStyle.css"
 
 
-export function add_form_for_search(lable_text) {
+export function Add_form_for_search(lable_text) {
     let next_page_route = '/Home/TPage/'
     const [pk_search, setSearch] = useState("");
 
@@ -14,7 +14,7 @@ export function add_form_for_search(lable_text) {
         setSearch(event.target[0].value);
         console.log(pk_search)
         if (pk_search > 0) {
-            window.location.href = next_page_route + pk_search
+            window.location.href = next_page_route+lable_text +'/'+ pk_search
         }
     };
     // const search = (event) => {

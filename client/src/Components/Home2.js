@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar";
 import { getDataFromServer } from "../utils/dataFromServer"
 import Title from "./Title"
 import add_dynamic_components from '../utils/makeData'
-import { add_form_for_search } from '../utils/generic2'
+import { Add_form_for_search } from '../utils/generic2'
 import { Link } from 'react-router-dom';
 const drawerWidth = 240;
 
@@ -103,10 +103,10 @@ export function Home2() {
             <button type="submit">Search</button>
           </form> */}
 
-          {add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_1)}
-          {add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_2)}
-          {add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_3)}
-          {add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_4)}
+          {Add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_1)}
+          {Add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_2)}
+          {Add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_3)}
+          {Add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_4)}
           {data.map((item) =>
           //  <div class="rectangle"> 
             add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)

@@ -3,8 +3,8 @@ import "../Styles/Text.css"
 import "../Styles/GlobalStyle.css"
 
 import TInterface from '../Interfaces/TInterface'
-
-export default class Title extends React.Component<TInterface, {}> {
+//export default class Title extends React.Component<TInterface, {}> {
+export default class Title extends React.Component {
   render() {
     return (
       <div className="title">

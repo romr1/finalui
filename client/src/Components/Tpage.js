@@ -9,7 +9,7 @@ import { sendDataToServer } from "../utils/dataFromServer"
 import Title from "./Title"
 import add_dynamic_components from '../utils/makeData'
 import BaseInformation from './BaseInformation';
-import { useParams } from 'react-router-dom';
+import { useParams,useLocation  } from 'react-router-dom';
 import { createFalse } from "typescript";
 
 
@@ -68,10 +68,17 @@ export function TPage() {
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
     };
-    let route=process.env.REACT_APP_HOST+'/t'
+    
     // let data = getDataFromServer(route);
     
     const { t_id } = useParams();
+    const location = useLocation();
+    console.log("#####################")
+    console.log(location.pathname.split('/').at(-2))
+    console.log("#####################")
+    let route=process.env.REACT_APP_HOST+'/'+location.pathname.split('/').at(-2)
+    //let route=process.env.REACT_APP_HOST+'/t'
+
     let data=sendDataToServer(route,t_id)
         data = data.slice(1)  //slice(1) because we dont need the message for how many return results  
     return (
