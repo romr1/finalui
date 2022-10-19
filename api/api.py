@@ -4,7 +4,7 @@
 
 
 import time
-
+import datetime
 from flask import Flask, request
 from flask_cors import CORS
 from datetime import datetime, timedelta
@@ -17,22 +17,21 @@ CORS(app)
 def get_current_time():
     return {'time': time.time()}
 
-
 @app.route('/table')
 def get_table():
     return {'responses':
         [
             {'type': 'table',
-             'data': {'headers': ['pk', 'name', 'status', 'stam'],
+             'data': {'headers': ['pk', 'name', 'status', 'time'],
                       'rows': [{'pk': 1,
                                 'name': 'aa',
                                 'status': 'aamoshe',
-                                'stam': 'aastamv'
+                                'time': datetime.utcnow()
                                 },
                                {'pk': 2,
                                 'name': 'bb_bla2',
                                 'status': 'bbmoshe2',
-                                'stam': 'bbstamv2'
+                                'time': datetime.utcnow()
                                 }, ]
                       }
              },
@@ -40,7 +39,6 @@ def get_table():
         'had_error': False,
         'response_type': 'some_type'
     }
-
 
 # @app.route('/result', methods = ['POST'])
 # def result():

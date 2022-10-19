@@ -128,10 +128,10 @@ function get_parse_columns_filters(next_page_route = null, image_src = null) {
 
 function add_filters(item, final_dict, next_page_route, image_src) {
     let parse_columns_filters = get_parse_columns_filters(next_page_route, image_src)
-    if (item.includes('date')) {
+    if (item.includes('time')) {
         final_dict = Object.assign({}, final_dict, parse_columns_filters['date']);
     }
-    if (item.includes('status')) {
+    if (item.includes('status') || item.includes('type')) {
         final_dict = Object.assign({}, final_dict, parse_columns_filters['select']);
     }
     if (next_page_route != null) {

@@ -9,7 +9,7 @@
 
 .column {
     display: flex;
-    gap: 2px;
+    /* gap: 2px; */
 }
 
 .sideBySideForm {

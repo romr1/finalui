@@ -105,6 +105,18 @@ export function Table({ columns, data, id_t, isRigth }) {
               }}
 
             >
+              <div id="toggle_columns">
+                {/* <div id="toggle_columns" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}> */}
+                <div class="row" >
+                  <div class="column">
+                    <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} /> Toggle
+                    All
+                  </div>
+
+                 
+                  <br />
+                </div>
+              </div>
               <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
@@ -112,32 +124,13 @@ export function Table({ columns, data, id_t, isRigth }) {
               />
             </th>
           </tr>
-          <div id="toggle_columns">
-            {/* <div id="toggle_columns" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}> */}
-            <div class="row" >
-              <div class="column">
-                <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} /> Toggle
-                All
-              </div>
 
-              {allColumns.map(column => (
-                <div key={column.id} class="column" >
-                    {/* this is change the span of first column */}
-                  {/* <label>
-                    <input type="checkbox" {...column.getToggleHiddenProps()} />{''}
-                    {column.id}
-                  </label> */} 
-                
-                </div>
-              ))}
-              <br />
-            </div>
-          </div>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
                 <th {...column.getHeaderProps()}>
                   {column.render('Header')}
+                  <input type="checkbox" {...column.getToggleHiddenProps()} />
                   {/* Render the columns filter UI */}
                   <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </th>
