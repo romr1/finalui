@@ -15,7 +15,7 @@ import EventIcon from "@material-ui/icons/Event";
 import ExploreIcon from "@material-ui/icons/Explore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import SettingsIcon from "@material-ui/icons/Settings";
-
+import { Link } from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -56,30 +56,30 @@ export default function ({ open, handleDrawerClose }) {
       <Divider />
       <div className="">
         <List>
-          <ListItem button>
+          <ListItem button >
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to={process.env.REACT_APP_SIDE_BAR1_ROUTE}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary="Mail" />
+            <ListItemText primary= {process.env.REACT_APP_SIDE_BAR1} />
+           
           </ListItem>
-
-          <ListItem button>
+          <ListItem button component={Link} to={process.env.REACT_APP_SIDE_BAR2_ROUTE}>
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
-            <ListItemText primary="Events" />
+            <ListItemText primary= {process.env.REACT_APP_SIDE_BAR2} />
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to={process.env.REACT_APP_SIDE_BAR3_ROUTE}>
             <ListItemIcon>
               <ExploreIcon />
             </ListItemIcon>
-            <ListItemText primary="Explore" />
+            <ListItemText primary= {process.env.REACT_APP_SIDE_BAR3} />
           </ListItem>
           <ListItem button>
             <ListItemIcon>

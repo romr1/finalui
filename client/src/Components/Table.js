@@ -8,6 +8,16 @@ import "../Styles/GlobalStyle.css"
 // import Card from "@material-ui/core/Card";
 //import BasicLayout from './GridLayout';
 
+
+
+// {allColumns.map(column => (
+//   <div key={column.id} class="column" >
+//       {/* this is change the span of first column */}
+//       <input type="checkbox" {...column.getToggleHiddenProps()} />
+//       {column.id}
+//   </div>
+// ))}
+
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
@@ -103,7 +113,6 @@ export function Table({ columns, data, id_t, isRigth }) {
               style={{
                 textAlign: 'left',
               }}
-
             >
               <div id="toggle_columns">
                 {/* <div id="toggle_columns" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}> */}
