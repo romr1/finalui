@@ -40,6 +40,55 @@ def get_table():
         'response_type': 'some_type'
     }
 
+
+
+@app.route('/C')
+def get_table2():
+    return {'responses':
+        [
+            {'type': 'table',
+             'data': {'headers': ['pk', 'c', 'cc', 'time'],
+                      'rows': [{'pk': 1,
+                                'c': 'aa',
+                                'cc': 'aamoshe',
+                                'time': datetime.utcnow()
+                                },
+                               {'pk': 2,
+                                'c': 'bb_bla2',
+                                'cc': 'bbmoshe2',
+                                'time': datetime.utcnow()
+                                }, ]
+                      }
+             },
+        ],
+        'had_error': False,
+        'response_type': 'some_type'
+    }
+
+
+@app.route('/P')
+def get_table3():
+    return {'responses':
+        [
+            {'type': 'table',
+             'data': {'headers': ['pk', 'P', 'PPP', 'time'],
+                      'rows': [{'pk': 1,
+                                'P': 'aa',
+                                'PPP': 'aamoshe',
+                                'time': datetime.utcnow()
+                                },
+                               {'pk': 2,
+                                'P': 'bb_bla2',
+                                'PPP': 'bbmoshe2',
+                                'time': datetime.utcnow()
+                                }, ]
+                      }
+             },
+        ],
+        'had_error': False,
+        'response_type': 'some_type'
+    }
+
 # @app.route('/result', methods = ['POST'])
 # def result():
 #     player_id = request.json
