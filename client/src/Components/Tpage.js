@@ -114,7 +114,7 @@ export function TPage() {
                         })}
                     >
                         <div className={classes.drawerHeader} />
-                        <Title message="Summery of" name="t_name" pk={t_id} />
+                        <Title message="Summery of" pk={t_id} />
                         <BaseInformation info_id={t_id} posix_location={posix_location} />
                         {/* <div className="rectangle" > */}
                         {
