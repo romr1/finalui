@@ -9,7 +9,7 @@ import { sendDataToServer } from "../utils/dataFromServer"
 import Title from "./Title"
 import add_dynamic_components from '../utils/makeData'
 import BaseInformation from './BaseInformation';
-import { useParams,useLocation  } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { createFalse } from "typescript";
 
 
@@ -68,20 +68,21 @@ export function TPage() {
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
     };
-    
+
     // let data = getDataFromServer(route);
-    
+
     const { t_id } = useParams();
     const location = useLocation();
-    const location_arr=location.pathname.split('/')
+    const location_arr = location.pathname.split('/')
+    let posix_location = location_arr[location_arr.length - 2];
     console.log("#####################")
-    console.log(location_arr[location_arr.length-2])
+    console.log(posix_location)
     console.log("#####################")
-    let route=process.env.REACT_APP_HOST+'/'+location_arr[location_arr.length-2]
+    let route = process.env.REACT_APP_HOST + '/' + posix_location;
     //let route=process.env.REACT_APP_HOST+'/t'
 
-    let data=sendDataToServer(route,t_id)
-        data = data.slice(1)  //slice(1) because we dont need the message for how many return results  
+    let data = sendDataToServer(route, t_id)
+    data = data.slice(1)  //slice(1) because we dont need the message for how many return results  
     return (
         <ThemeProvider theme={theme}>
             <div className={classes.root}>
@@ -99,12 +100,12 @@ export function TPage() {
                 >
                     <div className={classes.drawerHeader} />
                     <Title message="Summery of" name="t_name" pk={t_id} />
-                    <BaseInformation info_id={t_id}/>
+                    <BaseInformation info_id={t_id} posix_location={posix_location} />
                     {/* <div className="rectangle" > */}
-                    {  
+                    {
                         data.map((item) =>
                             add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)
-                    )}
+                        )}
                     {/* {add_dynamic_components(data, process.env.REACT_APP_TPAGE_ROUTE)} */}
                     {/* </div> */}
                 </main>
