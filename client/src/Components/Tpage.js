@@ -11,7 +11,10 @@ import add_dynamic_components from '../utils/makeData'
 import BaseInformation from './BaseInformation';
 import { useParams, useLocation } from 'react-router-dom';
 import { createFalse } from "typescript";
+import ReactLoading from 'react-loading';
+//import ClipLoader from "react-spinners/ClipLoader";
 
+import "../Styles/GlobalStyle.css"
 
 const drawerWidth = 240;
 
@@ -47,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function TPage() {
+    const [isLoding, setIsLoding] = useState(true);
+    setTimeout(() => {
+        setIsLoding(false);
+    }, 3000);
     const classes = useStyles();
     const [open, setOpen] = useState(createFalse);
     const [darkMode, setDarkMode] = useState(true);
@@ -93,22 +100,32 @@ export function TPage() {
                     darkMode={darkMode}
                 />
                 <Sidebar handleDrawerClose={handleDrawerClose} open={open} />
-                <main
-                    className={clsx(classes.content, {
-                        [classes.contentShift]: open
-                    })}
-                >
-                    <div className={classes.drawerHeader} />
-                    <Title message="Summery of" name="t_name" pk={t_id} />
-                    <BaseInformation info_id={t_id} posix_location={posix_location} />
-                    {/* <div className="rectangle" > */}
-                    {
-                        data.map((item) =>
-                            add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)
-                        )}
-                    {/* {add_dynamic_components(data, process.env.REACT_APP_TPAGE_ROUTE)} */}
-                    {/* </div> */}
-                </main>
+
+                {isLoding ? (
+                    // <ReactLoading type={'spinningBubbles'} color={"#676767"} height={1000} width={100} />
+                    <div className="all_center">
+                        <ReactLoading color="#676767" type='spinningBubbles' />
+                        Loading page...
+                    </div>
+                ) : (
+                    <main
+                        className={clsx(classes.content, {
+                            [classes.contentShift]: open
+                        })}
+                    >
+                        <div className={classes.drawerHeader} />
+                        <Title message="Summery of" name="t_name" pk={t_id} />
+                        <BaseInformation info_id={t_id} posix_location={posix_location} />
+                        {/* <div className="rectangle" > */}
+                        {
+                            data.map((item) =>
+                                add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)
+                            )}
+                        {/* {add_dynamic_components(data, process.env.REACT_APP_TPAGE_ROUTE)} */}
+                        {/* </div> */}
+                    </main>
+                )}
+
             </div>
         </ThemeProvider>
     );
