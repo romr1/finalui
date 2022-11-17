@@ -9,7 +9,7 @@ export default class Title extends React.Component {
     return (
       <div className="title">
         <h1>
-          {this.props.message} <b>{this.props.name} {this.props.pk}</b>
+           {this.props.message} <b>{this.props.pk}</b>
         </h1>
       </div>
     );
