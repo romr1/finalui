@@ -56,30 +56,30 @@ export default function ({ open, handleDrawerClose }) {
       <Divider />
       <div className="">
         <List>
-          <ListItem button >
+          {/* <ListItem button >
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
-          </ListItem>
+          </ListItem> */}
           <ListItem button component={Link} to={process.env.REACT_APP_SIDE_BAR1_ROUTE}>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
-            <ListItemText primary= {process.env.REACT_APP_SIDE_BAR1} />
-           
+            <ListItemText primary={process.env.REACT_APP_SIDE_BAR1} />
+
           </ListItem>
           <ListItem button component={Link} to={process.env.REACT_APP_SIDE_BAR2_ROUTE}>
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
-            <ListItemText primary= {process.env.REACT_APP_SIDE_BAR2} />
+            <ListItemText primary={process.env.REACT_APP_SIDE_BAR2} />
           </ListItem>
           <ListItem button component={Link} to={process.env.REACT_APP_SIDE_BAR3_ROUTE}>
             <ListItemIcon>
               <ExploreIcon />
             </ListItemIcon>
-            <ListItemText primary= {process.env.REACT_APP_SIDE_BAR3} />
+            <ListItemText primary={process.env.REACT_APP_SIDE_BAR3} />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
@@ -90,18 +90,18 @@ export default function ({ open, handleDrawerClose }) {
         </List>
         <Divider />
         <List>
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon>
               <DevicesIcon />
             </ListItemIcon>
             <ListItemText primary="Devices" />
-          </ListItem>
-          <ListItem button>
+          </ListItem> */}
+          {/* <ListItem button>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Settings" />
-          </ListItem>
+          </ListItem> */}
         </List>
       </div>
     </Drawer>
