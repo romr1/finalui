@@ -55,7 +55,7 @@ export function TPage() {
         setIsLoding(false);
     }, 3000);
     const classes = useStyles();
-    const [open, setOpen] = useState(createFalse);
+    const [open, setOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(true);
 
     const handleDrawerToggle = () => {
