@@ -259,7 +259,7 @@ export const DateFilters = (props) => {
   // Filter table by selected start-date and end-date
   const handleFilterByDate = () => {
     if (startDate && endDate) {
-      props.setFilter("date", [startDate, endDate]);
+      props.setFilter(props.column.Header.toLowerCase(), [startDate, endDate]);
     }
   }
 
