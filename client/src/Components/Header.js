@@ -45,7 +45,7 @@ export default function Header({
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" noWrap>
-                    Medium
+                    {process.env.REACT_APP_NAME}
                 </Typography>
                 <div className={classes.spacer} />
                 <IconButton
