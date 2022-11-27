@@ -29,27 +29,36 @@ export function getDataFromServer(route) {
 }
 
 
-export function sendDataToServer(route, data_to_send){
+export function sendDataToServer(route, data_to_send) {
     const [finalData, setData] = useState([{}]);
+    //const [data_to_base_info, setData2] = useState([{}]);
     React.useEffect(function effectFunction() {
         async function fetchData() {
-            console.log(data_to_send)
+            console.log("data to send")
+            console.log(typeof (data_to_send))
+            if (typeof (data_to_send) === 'object') {
+                console.log("object")
+                data_to_send = JSON.stringify({
+                    content: data_to_send
+                })
+                console.log(data_to_send)
+            }
             const response = await fetch(route, {
-                                                method:"POST",
-                                                headers:{ Authentication:'Access-Control-Allow-Origin'},
-                                                body:data_to_send
-                                                });
+                method: "POST",
+                headers: { Authentication: 'Access-Control-Allow-Origin' },
+                body: data_to_send
+            });
             const data = await response.json();
             console.log(data)
             setData(data.responses);
         }
-        fetchData().catch(err=>{
+        fetchData().catch(err => {
             console.log(err)
         });
     }, []);
 
     //getColumns(finalData)
-    return finalData //list of dict
+    return finalData //list of dict, 
 }
 
 export function sendDataToServer2(route, data_to_send){

@@ -4,10 +4,10 @@
 
 
 import time
-import datetime
 from flask import Flask, request
 from flask_cors import CORS
 from datetime import datetime, timedelta
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -17,21 +17,24 @@ CORS(app)
 def get_current_time():
     return {'time': time.time()}
 
+
 @app.route('/table')
 def get_table():
     return {'responses':
         [
             {'type': 'table',
-             'data': {'headers': ['pk', 'name', 'status', 'time'],
+             'data': {'headers': ['pk', 'name', 'status', 'time_check', 'version'],
                       'rows': [{'pk': 1,
                                 'name': 'aa',
                                 'status': 'aamoshe',
-                                'time': datetime.utcnow()
+                                'time_check': str(datetime.utcnow()-timedelta(days=2)),
+                                'version': '1.2'
                                 },
                                {'pk': 2,
                                 'name': 'bb_bla2',
                                 'status': 'bbmoshe2',
-                                'time': datetime.utcnow()
+                                'time_check': str(datetime.utcnow()),
+                                'version': '1.3'
                                 }, ]
                       }
              },
@@ -39,7 +42,6 @@ def get_table():
         'had_error': False,
         'response_type': 'some_type'
     }
-
 
 
 @app.route('/C')
@@ -89,6 +91,7 @@ def get_table3():
         'response_type': 'some_type'
     }
 
+
 # @app.route('/result', methods = ['POST'])
 # def result():
 #     player_id = request.json
@@ -128,6 +131,7 @@ def get_t2():
                 'had_error': False,
                 'response_type': 'some_type'
                 }
+
     return {'responses':
                 [{'type': 'message', 'data': 'returned 1 results'},
                  {'type': 'message', 'data': 'table title1'},
@@ -222,6 +226,8 @@ def get_t2():
             'had_error': False,
             'response_type': 'some_type'
             }
+
+
 @app.route('/TPage', methods=['POST', 'GET'])
 def get_t():
     request_id = request.data.decode()
@@ -348,19 +354,67 @@ def get_t():
             }
 
 
-@app.route('/battery', methods=['POST', 'GET'])
+@app.route('/base_information', methods=['POST', 'GET'])
 def get_attr():
     print("hereeee")
-    request_id = request.data.decode()
-    if request_id:
-        print("here2")
+    request_content = json.loads(request.data.decode()).get('content')
+    print(request_content)
+    id = request_content.get('info_id')
+    posix = request_content.get('posix_location')
+    print(id)
+    print(posix)
+    if request_content:
         return {'responses':
-                [
-                    {'type': 'message', 'data': '20'}
-                ],
-            'had_error': False,
-            'response_type': 'some_type'
-        }
+                    [{'type': 'message', 'data': 'returned 1 results'},
+                     {'type': 'table',
+                      'data': {'headers': ['key', 'value'],
+                               'rows': [{'key': id,
+                                         'value': 'tt',
+                                         },
+                                        {'key': posix,
+                                         'value': 'aa2',
+                                         },
+                                        {'key': 'last_time',
+                                         'value': datetime.now(),
+                                         },
+                                        {'key': 'battery',
+                                         'value': '10',
+                                         },
+                                        {'key': 'session',
+                                         'value': 'sssss',
+                                         },
+                                        {'key': 'version',
+                                         'value': 'bbbbbb',
+                                         },
+                                        {'key': 'ppp',
+                                         'value': 'qqq',
+                                         },
+                                        {'key': 'version2',
+                                         'value': 'bbbbbbeeeeeeeeeeeeee',
+                                         },
+                                        {'key': 'ppp2',
+                                         'value': 'qqq2',
+                                         },
+                                        {'key': 'ppp3',
+                                         'value': 'qqq3',
+                                         },
+                                        {'key': 'ppp4',
+                                         'value': 'qqq4',
+                                         },
+                                        {'key': 'ppp5',
+                                         'value': 'qqq',
+                                         },
+                                        {'key': 'ppp6',
+                                         'value': 'qqq',
+                                         },
+                                        ]
+                               }
+                      },
+
+                     ],
+                'had_error': False,
+                'response_type': 'some_type'
+                }
 
 
 if __name__ == "__main__":
