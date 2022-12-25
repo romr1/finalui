@@ -9,7 +9,7 @@ import { Ppage } from './Components/Ppage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-
+const envSettings = window;
 ReactDOM.render(
   <React.StrictMode>
     <Router>
@@ -26,7 +26,7 @@ ReactDOM.render(
 
             </Route>
 
-            <Route path={`TPage/${process.env.REACT_APP_SEARCH_TEXT_1}`}>
+            <Route path={`TPage/${envSettings.REACT_APP_SEARCH_TEXT_1}`}>
               <Route path=":t_id">
                 <Route path="" element={<TPage />} />
                

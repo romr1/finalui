@@ -80,22 +80,26 @@ function add_extra_icons(row, div_list) {
 export function add_dynamic_info(item) {
   let columns, rows;
   let div_list = [];
-  if (Object.keys(item).length !== 0) {
-    if (item.type.normalize() === 'table'.normalize()) {
-      columns = item.data.headers
-      rows = item.data.rows
-      rows.forEach(row => {
-        div_list.push(
-          <div class="column">
-            {row.key}: {row.value}
-          </div>
-        )
-        div_list = add_extra_icons(row, div_list)
+  try {
+    if (Object.keys(item).length !== 0) {
+      if (item.type.normalize() === 'table'.normalize()) {
+        columns = item.data.headers
+        rows = item.data.rows
+        rows.forEach(row => {
+          div_list.push(
+            <div class="column">
+              {row.key}: {row.value}
+            </div>
+          )
+          div_list = add_extra_icons(row, div_list)
 
-      });
+        });
+      }
     }
+    console.log("div_list")
+    console.log(div_list)
+  } catch (e) {
+    console.log(rows + e)
   }
-  console.log("div_list")
-  console.log(div_list)
   return div_list
 }
