@@ -119,7 +119,7 @@ export function TPage() {
                         {/* <div className="rectangle" > */}
                         {
                             data.map((item) =>
-                                add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)
+                                add_dynamic_components(item, null)
                             )}
                         {/* {add_dynamic_components(data, process.env.REACT_APP_TPAGE_ROUTE)} */}
                         {/* </div> */}
