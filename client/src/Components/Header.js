@@ -10,6 +10,9 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import Badge from "@material-ui/core/Badge";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { makeStyles } from "@material-ui/core/styles";
+import logo from '../images/logo.png';
+
+
 //https://codesandbox.io/s/dg3tj?file=/src/App.js:1604-1611
 const useStyles = makeStyles((theme) => ({
     appbar: {
@@ -44,6 +47,8 @@ export default function Header({
                 >
                     <MenuIcon />
                 </IconButton>
+                <div className={classes.spacer} />
+                <img src={logo} width="30" height="30" />
                 <div className={classes.spacer} />
                 <IconButton
                     color="inherit"
