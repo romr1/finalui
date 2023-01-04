@@ -1,15 +1,16 @@
 .title {
-  font-family: 'Brush Script MT',
-    cursive,
-    fantasy;
+  font-family: Arial, Helvetica, sans-serif;
   display: 'flex';
   text-align: center;
   text-shadow: 0px 4px 10px #9FFFCB;
+  font-size: 21px;
 }
 
 
 .sub_title {
-  font-family: 'Brush Script MT', cursive, fantasy;
+  font-family: Arial,
+    Helvetica,
+    sans-serif;
   display: 'flex';
   justify-content: 'left';
   align-items: 'center';
