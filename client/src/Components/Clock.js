@@ -3,7 +3,7 @@ import "../Styles/Clock.css"
 
 const date = new Date();
 
-export default function Clock({ txt }) {
+export default function Clock({ txt, is_system_clock = false }) {
     const [dateTime, setDateTime] = useState({
         hours: date.getHours(),
         minutes: date.getMinutes(),
@@ -20,13 +20,16 @@ export default function Clock({ txt }) {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
-    console.log(txt)
+    if (is_system_clock) {
+        dateTime.hours = dateTime.hours + 2
+    }
     return (
         <div>
             <div className="msg">{txt}</div>
             <br></br>
             <div className="clock">
                 <div>
+
                     {dateTime.hours}:{dateTime.minutes}:{dateTime.seconds}
                 </div>
             </div>
