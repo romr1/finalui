@@ -160,7 +160,13 @@ export function getColumnsWithFilters(columns_names, next_page_route, image_src)
                 Header: item.charAt(0).toUpperCase() + item.slice(1), //only first letter is in lower case
                 accessor: item.toLowerCase(),
             }
-            final_dict = add_filters(item, final_dict, next_page_route, image_src)
+            if (columns_names[0] == item) { //only the first col is need to do on click
+                final_dict = add_filters(item, final_dict, next_page_route = next_page_route, image_src = image_src)
+            } else {
+                final_dict = add_filters(item, final_dict, next_page_route = null, image_src)
+            }
+
+            //final_dict=add_colors(item,final_dict)
             return (final_dict)
         })
     )

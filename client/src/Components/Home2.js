@@ -10,6 +10,8 @@ import Title from "./Title"
 import add_dynamic_components from '../utils/makeData'
 import { Add_form_for_search } from '../utils/generic2'
 import { Link } from 'react-router-dom';
+import Clock from "./Clock"
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -97,6 +99,9 @@ export function Home2() {
           })}
         >
           <div className={classes.drawerHeader} />
+          <Clock txt="Home Time"></Clock>
+          <Clock txt="bla" is_system_clock="true"></Clock>
+           {/* <Clock txt={process.env.REACT_APP_NAME_TIME} is_system_clock="true"></Clock> */}
           <Title message={process.env.REACT_APP_TITLE_MESSAGE} />
           {/* <form onSubmit={handleSubmit}>
             <input type="text" />

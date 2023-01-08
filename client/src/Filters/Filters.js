@@ -4,6 +4,8 @@ import { matchSorter } from 'match-sorter'
 import { useAsyncDebounce } from 'react-table'
 import DatePickerCalendar from "./DatePicker";
 import { AiOutlineSync, } from "react-icons/ai";
+import "../Styles/GlobalStyle.css"
+
 
 export function fuzzyTextFilterFn(rows, id, filterValue) {
   return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
@@ -219,9 +221,6 @@ export const IndeterminateCheckbox = React.forwardRef(
 
 
 
-
-
-
 export const DateFilters = (props) => {
 
   const [startDate, setStartDate] = useState(null);
@@ -259,7 +258,7 @@ export const DateFilters = (props) => {
   // Filter table by selected start-date and end-date
   const handleFilterByDate = () => {
     if (startDate && endDate) {
-      props.setFilter(props.column.Header.toLowerCase(), [startDate, endDate]);
+      props.setFilter(props.column.Header.toLowerCase(), [Date(startDate), Date(endDate)]);
     }
   }
 
@@ -276,21 +275,25 @@ export const DateFilters = (props) => {
     <div className="filterParameters" id="filterParameters">
       <div className="datePickerWrapper">
         <div className="Datepicker-grid-container">
-          <div>Filter </div>
-          <div className="startDate">From: <div className="datePickerLabel">{startDate ? startDate.toLocaleDateString("fr-CA") : null}</div>
-            < DatePickerCalendar handleDateChange={handleStartDate} date={startDate} />
+          <div className="top">
+            <div className="top">From:<div className="datePickerLabel">{startDate ? startDate.toLocaleDateString("fr-CA") : null}</div>
+              < DatePickerCalendar handleDateChange={handleStartDate} date={startDate} />
+            </div>
+            {/* <div className="verticalLine"></div> */}
+            <div className="top">To:<div className="datePickerLabel">{endDate ? endDate.toLocaleDateString("fr-CA") : null}</div>
+              < DatePickerCalendar handleDateChange={handleEndDate} date={endDate} />
+            </div>
           </div>
-          <div className="verticalLine"></div>
-          <div className="endDate">To: <div className="datePickerLabel">{endDate ? endDate.toLocaleDateString("fr-CA") : null}</div>
-            < DatePickerCalendar handleDateChange={handleEndDate} date={endDate} />
-          </div>
+
         </div>
       </div>
-      <div className="resetFilter" onClick={autoResetFilter}><span>Reset</span>
-        <AiOutlineSync className="resetFilter_icon" />
-      </div>
-      <div className="apply-filter">
-        <button onClick={applyFilter} className="applyFilter-btn" id="applyFilter-btn"> Search </button>
+      <div className="top2">
+        <div className="resetFilter" onClick={autoResetFilter} ><span>Reset</span>
+          <AiOutlineSync className="resetFilter_icon" />
+        </div>
+        <div className="apply-filter">
+          <button onClick={applyFilter} className="applyFilter-btn" id="applyFilter-btn"> Search </button>
+        </div>
       </div>
     </div>
 
