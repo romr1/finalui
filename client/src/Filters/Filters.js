@@ -257,15 +257,29 @@ export const DateFilters = (props) => {
 
   // Filter table by selected start-date and end-date
   const handleFilterByDate = () => {
+    let filters_rows=[]
     if (startDate && endDate) {
-      props.setFilter(props.column.Header.toLowerCase(), [Date(startDate), Date(endDate)]);
+      let column_date_name=props.column.Header.toLowerCase()
+      
+
+
+      for(const row of props.data){
+        let row_date=new Date(row[column_date_name])
+        if(row_date>=startDate && row_date<=endDate){
+          filters_rows.push(row)
+          //this is true row
+         // props.setFilter(props.column.Header.toLowerCase(), [row]);
+        }
+      }
+      //props.setFilter(props.column.Header.toLowerCase(), [startDate, endDate]);
     }
+    return filters_rows
   }
 
   // Handles all calls to filter the table <-- attached to onClick event of "apply filter button" -->
   const applyFilter = () => {
     if (startDate && endDate) {
-      handleFilterByDate();
+      return handleFilterByDate();
     }
     if (!startDate && endDate || startDate && !endDate) {
       window.alert("Please Make sure you select start-date and end-date");
@@ -276,7 +290,10 @@ export const DateFilters = (props) => {
       <div className="datePickerWrapper">
         <div className="Datepicker-grid-container">
           <div className="top">
-            <div className="top">From:<div className="datePickerLabel">{startDate ? startDate.toLocaleDateString("fr-CA") : null}</div>
+            <div className="top">From:
+              <div className="datePickerLabel">
+                  {startDate ? startDate.toLocaleDateString("fr-CA") : null}
+              </div>
               < DatePickerCalendar handleDateChange={handleStartDate} date={startDate} />
             </div>
             {/* <div className="verticalLine"></div> */}

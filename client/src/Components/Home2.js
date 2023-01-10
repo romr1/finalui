@@ -113,9 +113,7 @@ export function Home2() {
           {Add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_3)}
           {Add_form_for_search(process.env.REACT_APP_SEARCH_TEXT_4)}
           {data.map((item) =>
-          //  <div class="rectangle"> 
             add_dynamic_components(item, process.env.REACT_APP_TPAGE_ROUTE)
-            // </div>
           )}
           {/* <Content /> */}
         </main>

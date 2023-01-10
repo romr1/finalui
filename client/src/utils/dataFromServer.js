@@ -7,11 +7,6 @@ import download from '../images/download.png';
 export function getDataFromServer(route) {
 
     const [finalData, setData] = useState([{}]);
-    // fetch(route).then(response=>{
-    //     const data=response.json()
-    //     setData(data.responses);
-    // })
-
     ///https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
     React.useEffect(function effectFunction() {
         async function fetchData() {
@@ -23,8 +18,6 @@ export function getDataFromServer(route) {
             console.log(err)
         });
     }, []);
-
-    //getColumns(finalData)
     return finalData //list of dict
 }
 
@@ -60,6 +53,7 @@ export function sendDataToServer(route, data_to_send) {
     //getColumns(finalData)
     return finalData //list of dict, 
 }
+
 
 export function sendDataToServer2(route, data_to_send){
     const [finalData, setData] = useState();

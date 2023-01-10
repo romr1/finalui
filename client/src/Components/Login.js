@@ -7,6 +7,22 @@ import useSound from 'use-sound';
 import boopSfx from '../sound/boopSfx.mp3';
 //import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
 // import ToolboxLayout from "./GridLayout"
+
+
+
+// async function loginUser(credentials) {
+//   return fetch('http://localhost:8080/login', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(credentials)
+//   })
+//     .then(data => data.json())
+//  }
+
+
+
 export default function Login() {
   const navigate = useNavigate();
   const route_to_home = e => {
@@ -31,21 +47,28 @@ export default function Login() {
   //   )
 
   // };
-
+  const handleSubmit = async e => {
+    // e.preventDefault();
+    // const token = await loginUser({
+    //   username,
+    //   password
+    // });
+    // setToken(token);
+  }
   return (
     // <ToolboxLayout />
     <GenericStyle>
       <BoopButton></BoopButton>
       <div className="login-wrapper">
-        <h1>A Log In</h1>
-        <form>
+        <h1>{process.env.REACT_APP_LOGIN_MESSAGE}</h1>
+        <form onSubmit={handleSubmit}>
           <label>
-            <p>Username</p>
-            <input type="text" onChange={e => setUserName(e.target.value)} />
+            <p class="bolder">Username</p>
+            <input type="text" onChange={e => setUserName(e.target.value)} class="input"/>
           </label>
           <label>
-            <p>Password</p>
-            <input type="password" onChange={e => setPassword(e.target.value)} />
+            <p class="bolder">Password</p>
+            <input type="password" onChange={e => setPassword(e.target.value)} class="input"/>
           </label>
           <div>
             <br></br>
