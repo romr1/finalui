@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React, { useState } from "react";
 import { useTable, useFilters, useGlobalFilter } from 'react-table'
 import { GlobalFilter, DefaultColumnFilter, fuzzyTextFilterFn, IndeterminateCheckbox } from "../Filters/Filters";
 import "../Styles/Table.css"
@@ -21,19 +21,33 @@ import "../Styles/GlobalStyle.css"
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
+
+function dateBetweenFilterFn(rows, id, filterValues) {
+  let sd = new Date(filterValues[0]);
+  let ed = new Date(filterValues[1]);
+  console.log(rows, id, filterValues)
+  return rows.filter(r => {
+    var time = new Date(r.values[id]);
+    console.log(time, ed, sd)
+    if (filterValues.length === 0) return rows;
+    return (time >= sd && time <= ed);
+  });
+}
+
+dateBetweenFilterFn.autoRemove = val => !val;
+
+
 // Our table component
 
 export function Table({ columns, data, id_t, isRigth }) {
+  console.log("ttttttttttttttttt")
+  console.log(columns)
   const filterTypes = React.useMemo(
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
       fuzzyText: fuzzyTextFilterFn,
       //date filter
-      dateFilter: (rows, id, filterValue) => {
-        return rows = rows.filter(row => {
-          return new Date(row.values.date) >= filterValue[0] && new Date(row.values.date) <= filterValue[1];
-        });
-      },
+      dateFilter: dateBetweenFilterFn,
       // Or, override the default text filter to use
       // "startWith"
       text: (rows, id, filterValue) => {
@@ -122,7 +136,7 @@ export function Table({ columns, data, id_t, isRigth }) {
                     All
                   </div>
 
-                 
+
                   <br />
                 </div>
               </div>
