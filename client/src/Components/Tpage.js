@@ -10,8 +10,8 @@ import Title from "./Title"
 import add_dynamic_components from '../utils/makeData'
 import BaseInformation from './BaseInformation';
 import { useParams, useLocation } from 'react-router-dom';
-import { createFalse } from "typescript";
 import ReactLoading from 'react-loading';
+import Clock from "./Clock"
 //import ClipLoader from "react-spinners/ClipLoader";
 
 import "../Styles/GlobalStyle.css"
@@ -114,6 +114,7 @@ export function TPage() {
                         })}
                     >
                         <div className={classes.drawerHeader} />
+                        <Clock txt={process.env.REACT_APP_NAME_TIME} is_system_clock="true"></Clock>
                         <Title message="Summery of" pk={t_id} />
                         <BaseInformation info_id={t_id} posix_location={posix_location} />
                         {/* <div className="rectangle" > */}
