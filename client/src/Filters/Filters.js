@@ -6,7 +6,6 @@ import DatePickerCalendar from "./DatePicker";
 import { AiOutlineSync, } from "react-icons/ai";
 import "../Styles/GlobalStyle.css"
 
-
 export function fuzzyTextFilterFn(rows, id, filterValue) {
   return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
 }
@@ -220,7 +219,7 @@ export const IndeterminateCheckbox = React.forwardRef(
 )
 
 
-
+//https://www.codesmartly.codes/react/javascript/how-to-implement-table-filter-react-table-v7/
 export const DateFilters = (props) => {
 
   const [startDate, setStartDate] = useState(null);
@@ -257,29 +256,115 @@ export const DateFilters = (props) => {
 
   // Filter table by selected start-date and end-date
   const handleFilterByDate = () => {
-    let filters_rows=[]
     if (startDate && endDate) {
-      let column_date_name=props.column.Header.toLowerCase()
-      
 
-
-      for(const row of props.data){
-        let row_date=new Date(row[column_date_name])
-        if(row_date>=startDate && row_date<=endDate){
-          filters_rows.push(row)
-          //this is true row
-         // props.setFilter(props.column.Header.toLowerCase(), [row]);
-        }
-      }
-      //props.setFilter(props.column.Header.toLowerCase(), [startDate, endDate]);
+      props.setFilter(props.column.Header.toLowerCase(), [startDate, endDate]);
     }
-    return filters_rows
   }
 
   // Handles all calls to filter the table <-- attached to onClick event of "apply filter button" -->
   const applyFilter = () => {
     if (startDate && endDate) {
-      return handleFilterByDate();
+      handleFilterByDate();
+    }
+    if (!startDate && endDate || startDate && !endDate) {
+      window.alert("Please Make sure you select start-date and end-date");
+    }
+  }
+  return (
+    <div className="filterParameters" id="filterParameters">
+
+      <div className="datePickerWrapper">
+        <div className="Datepicker-grid-container">
+          <div className="top">
+            <div className="top">From:<div className="datePickerLabel">{startDate ? startDate.toLocaleDateString("fr-CA") : null}</div>
+              < DatePickerCalendar handleDateChange={handleStartDate} date={startDate} />
+            </div>
+            {/* <div className="verticalLine"></div> */}
+            <div className="top">To:<div className="datePickerLabel">{endDate ? endDate.toLocaleDateString("fr-CA") : null}</div>
+              < DatePickerCalendar handleDateChange={handleEndDate} date={endDate} />
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div className="top2">
+        <div className="resetFilter" onClick={autoResetFilter} ><span>Reset</span>
+          <AiOutlineSync className="resetFilter_icon" />
+        </div>
+        <div className="apply-filter">
+          <h3>All Transactions</h3>
+          <button onClick={applyFilter} className="applyFilter-btn" id="applyFilter-btn"> Apply Filte </button>
+        </div>
+      </div>
+    </div>
+
+
+  )
+}
+
+
+
+
+
+// This is a custom filter UI for selecting
+// a unique option from a list
+export function DateColumnFilter({
+  column: { filterValue, setFilter, preFilteredRows, id },
+}) {
+  // Calculate the options for filtering
+  // // using the preFilteredRows
+  // const options = React.useMemo(() => {
+  //   const options = new Set()
+  //   preFilteredRows.forEach(row => {
+  //     options.add(row.values[id])
+  //   })
+  //   return [...options.values()]
+  // }, [id, preFilteredRows])
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  // attached to onChange event listener of Global filter input box
+  // const onChange = useAsyncDebounce(value => {
+  //   props.setGlobalFilter(value || undefined)
+  // }, 200)
+
+  //called when a user selects filter start-date 
+  const handleStartDate = (date) => {
+    setStartDate(date);
+  }
+
+  //called when a user selects filter end-date 
+  const handleEndDate = (date) => {
+    setEndDate(date);
+  }
+
+  // Auto Rest All Filters
+  const autoResetFilter = () => {
+    setStartDate(null);
+    setEndDate(null);
+    //props.dispatch({ type: "resetFilters" });
+    var radios = document.querySelectorAll('input[name="category-Filters"]');
+    for (let i of radios) {
+      if (i.checked) {
+        i.checked = false;
+        break
+      }
+    }
+  }
+
+  // Filter table by selected start-date and end-date
+  const handleFilterByDate = () => {
+    if (startDate && endDate) {
+      setFilter(filterValue.Header.toLowerCase(), [Date(startDate), Date(endDate)]);
+    }
+  }
+
+  // Handles all calls to filter the table <-- attached to onClick event of "apply filter button" -->
+  const applyFilter = () => {
+    if (startDate && endDate) {
+      handleFilterByDate();
     }
     if (!startDate && endDate || startDate && !endDate) {
       window.alert("Please Make sure you select start-date and end-date");
@@ -290,10 +375,7 @@ export const DateFilters = (props) => {
       <div className="datePickerWrapper">
         <div className="Datepicker-grid-container">
           <div className="top">
-            <div className="top">From:
-              <div className="datePickerLabel">
-                  {startDate ? startDate.toLocaleDateString("fr-CA") : null}
-              </div>
+            <div className="top">From:<div className="datePickerLabel">{startDate ? startDate.toLocaleDateString("fr-CA") : null}</div>
               < DatePickerCalendar handleDateChange={handleStartDate} date={startDate} />
             </div>
             {/* <div className="verticalLine"></div> */}
@@ -313,7 +395,63 @@ export const DateFilters = (props) => {
         </div>
       </div>
     </div>
-
-
   )
 }
+
+
+
+
+
+
+
+
+export function DateRangeColumnFilter({
+  column: { filterValue = [], preFilteredRows, setFilter, id } }) {
+  const [min, max] = React.useMemo(() => {
+    let min = new Date(preFilteredRows[0].values[id])
+    let max = new Date(preFilteredRows[0].values[id])
+    preFilteredRows.forEach(row => {
+      min = new Date(row.values[id]) <= min ? new Date(row.values[id]) : min
+      max = new Date(row.values[id]) >= max ? new Date(row.values[id]) : max
+    });
+    return [min, max];
+  }, [id, preFilteredRows]);
+  console.log(min, max)
+  return (
+    <div
+      style={{
+        display: "flex"
+      }}
+    >
+      <input
+        value={filterValue[0] || ""}
+        type="date"
+        min={min.toISOString().slice(0, 10)}
+        onChange={e => {
+          const val = e.target.value;
+          console.log(e.target.value);
+          setFilter((old = []) => [val ? (val) : undefined, old[1]]);
+        }}
+        style={{
+          width: "170px",
+          marginRight: "0.5rem"
+        }}
+      />
+      to
+      <input
+        value={filterValue[1] || ""}
+        type="date"
+        max={max.toISOString().slice(0, 10)}
+        onChange={e => {
+          const val = e.target.value;
+          setFilter((old = []) => [old[0], val ? (val) : undefined]);
+        }}
+        style={{
+          width: "170px",
+          marginLeft: "0.5rem"
+        }}
+      />
+    </div>
+  );
+}
+

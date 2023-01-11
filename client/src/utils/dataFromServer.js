@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SliderColumnFilter, SelectColumnFilter, DateFilters } from "../Filters/Filters";
+import { SliderColumnFilter, SelectColumnFilter, DateFilters, DateColumnFilter, DateRangeColumnFilter } from "../Filters/Filters";
 import download from '../images/download.png';
-
+import wifi from '../images/wifi.png';
 
 export function getDataFromServer(route) {
 
     const [finalData, setData] = useState([{}]);
+    // fetch(route).then(response=>{
+    //     const data=response.json()
+    //     setData(data.responses);
+    // })
+
     ///https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
     React.useEffect(function effectFunction() {
         async function fetchData() {
-            const response = await fetch(route, {headers:{ Authentication:'Access-Control-Allow-Origin'}});
+            const response = await fetch(route, { headers: { Authentication: 'Access-Control-Allow-Origin' } });
             const data = await response.json();
             setData(data.responses);
         }
-        fetchData().catch(err=>{
+        fetchData().catch(err => {
             console.log(err)
         });
     }, []);
+
+    //getColumns(finalData)
     return finalData //list of dict
 }
 
@@ -54,22 +61,21 @@ export function sendDataToServer(route, data_to_send) {
     return finalData //list of dict, 
 }
 
-
-export function sendDataToServer2(route, data_to_send){
+export function sendDataToServer2(route, data_to_send) {
     const [finalData, setData] = useState();
     React.useEffect(function effectFunction() {
         async function fetchData() {
             console.log(data_to_send)
             const response = await fetch(route, {
-                                                method:"POST",
-                                                headers:{ Authentication:'Access-Control-Allow-Origin'},
-                                                body:data_to_send
-                                                });
+                method: "POST",
+                headers: { Authentication: 'Access-Control-Allow-Origin' },
+                body: data_to_send
+            });
             const data = await response.json();
             console.log(data)
             setData(data.responses);
         }
-        fetchData().catch(err=>{
+        fetchData().catch(err => {
             console.log(err)
         });
     }, []);
@@ -83,7 +89,7 @@ function get_parse_columns_filters(next_page_route = null, image_src = null) {
     let filters_dict =
     {
         date: {
-            Filter: DateFilters,
+            Filter: DateRangeColumnFilter,
             filter: 'dateFilter'
         },
         select: {
@@ -137,6 +143,9 @@ function add_filters(item, final_dict, next_page_route, image_src) {
     if (item.includes('status') || item.includes('type')) {
         final_dict = Object.assign({}, final_dict, parse_columns_filters['select']);
     }
+    if (image_src != null) {
+        final_dict = Object.assign({}, final_dict, parse_columns_filters['image_col']);
+    }
     if (next_page_route != null) {
         final_dict = Object.assign({}, final_dict, parse_columns_filters['click_cell']);
     }
@@ -147,8 +156,18 @@ const foo = () => {
 
 }
 
-export function getColumnsWithFilters(columns_names, next_page_route, image_src) {
-    let columns_arr = columns_names.map(
+// function add_colors(item,final_dict){
+
+// }
+function _get_image(column_name) {
+    //TODO update logic of this function
+    //need to get image like the type of d 
+    return wifi
+}
+export function getColumnsWithFilters(columns_names, next_page_route) {
+    let black_list = process.env.REACT_APP_BLACK_LIST_COLUMN.split(',')
+    let image_src = null;
+    let columns_arr = columns_names.filter(item => !black_list.includes(item)).map(
         (item => {
             let final_dict = {
                 Header: item.charAt(0).toUpperCase() + item.slice(1), //only first letter is in lower case
@@ -157,6 +176,9 @@ export function getColumnsWithFilters(columns_names, next_page_route, image_src)
             if (columns_names[0] == item) { //only the first col is need to do on click
                 final_dict = add_filters(item, final_dict, next_page_route = next_page_route, image_src = image_src)
             } else {
+                if (item == process.env.REACT_APP_IMAGE_COLUMN_NAME) {
+                    image_src = _get_image(item)
+                }
                 final_dict = add_filters(item, final_dict, next_page_route = null, image_src)
             }
 
