@@ -9,7 +9,7 @@ import medium_battery from '../images/medium_battery.png';
 import low_battery from '../images/low_battery.png';
 import red_clock from '../images/red_clock.png';
 import green_clock from '../images/green_clock.png';
-import _ from "lodash";
+
 
 
 export default function add_dynamic_components(item, route_path = null) {
@@ -25,36 +25,13 @@ export default function add_dynamic_components(item, route_path = null) {
     if (item.type.normalize() === 'table'.normalize()) {
       columns = item.data.headers
       rows = item.data.rows
-      let newRows=_parse_to_date(rows)
-      let columns_with_filters = getColumnsWithFilters(columns, route_path, download) //TODO CHECK HOW CAN DO IT WITH React.useMemo(() => {
-      return <Table  columns={columns_with_filters} data={newRows} isRigth={isRigth} />
+      let columns_with_filters = getColumnsWithFilters(columns, route_path) //TODO CHECK HOW CAN DO IT WITH React.useMemo(() => {
+      return <Table columns={columns_with_filters} data={rows} isRigth={isRigth} />
     } else if (item.type.normalize() === 'message'.normalize()) {
-      return <SubTitle  title={item.data} />
+      return <SubTitle title={item.data} />
 
     }
   }
-}
-
-function _parse_to_date(rows){
-  let parsed_rows=[{}]
-  let new_row={};
-  let key,value;
-  rows.forEach(row => {
-    if (Object.keys(row).length !== 0) {
-      for([key,value] of Object.entries(row)){
-        if(key.includes('time')){
-          let date_row=new Date(value)
-          //row[key]=date_row
-          new_row[key]=date_row
-        }
-        else{
-          new_row[key]=value
-        }
-      }
-      parsed_rows.push(new_row)
-    }
-}  )  
-  return rows
 }
 
 function get_battery_image_by_percent(battery_percentage) {
@@ -111,8 +88,7 @@ export function add_dynamic_info(item) {
         rows.forEach(row => {
           div_list.push(
             <div class="column">
-             {row.value}
-             {row.key}
+              {row.key}: {row.value}
             </div>
           )
           div_list = add_extra_icons(row, div_list)
