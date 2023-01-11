@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Clock.css"
 
-const date = new Date();
+function get_date(is_system_clock) {
+    let date;
+    if (is_system_clock) {
+        let currentTime = new Date().getTime();
+        let time_diff = process.env.REACT_APP_CLOCK_DIFF_TIME
+        date = new Date(currentTime + time_diff * 60 * 60 * 1000);
+    } else {
+        date = new Date().getTime();
+    }
+    return date
+}
 
 export default function Clock({ txt, is_system_clock = false }) {
+
+    const date = get_date(is_system_clock)
     const [dateTime, setDateTime] = useState({
         hours: date.getHours(),
         minutes: date.getMinutes(),
@@ -11,7 +23,7 @@ export default function Clock({ txt, is_system_clock = false }) {
     });
     useEffect(() => {
         const timer = setInterval(() => {
-            const date = new Date();
+            const date = get_date(is_system_clock)
             setDateTime({
                 hours: date.getHours(),
                 minutes: date.getMinutes(),
@@ -20,9 +32,7 @@ export default function Clock({ txt, is_system_clock = false }) {
         }, 1000);
         return () => clearInterval(timer);
     }, []);
-    if (is_system_clock) {
-        dateTime.hours = dateTime.hours + 2
-    }
+
     return (
         <div>
             <div className="msg">{txt}</div>
