@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SliderColumnFilter, SelectColumnFilter, DateFilters } from "../Filters/Filters";
+import { SliderColumnFilter, SelectColumnFilter, DateFilters, DateColumnFilter, DateRangeColumnFilter } from "../Filters/Filters";
 import download from '../images/download.png';
 import wifi from '../images/wifi.png';
 
@@ -89,7 +89,7 @@ function get_parse_columns_filters(next_page_route = null, image_src = null) {
     let filters_dict =
     {
         date: {
-            Filter: DateFilters,
+            Filter: DateRangeColumnFilter,
             filter: 'dateFilter'
         },
         select: {
